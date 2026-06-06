@@ -16,4 +16,6 @@ def get_top10():
 
 def check_alerts(alerts):
     print("\nFinance Watcher - Top 10\n")
-    summary = "Finance W
+    summary = "Finance Watcher\n\n"
+    for coin in get_top10():
+        name = coin["sy
