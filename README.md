@@ -1,28 +1,19 @@
-# 📈 Finance Watcher
+import requests, os, time
+from dotenv import load_dotenv
+load_dotenv()
 
-Real-time crypto price tracker with custom alerts — runs on WSL2/Ubuntu.
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-## Features
-- 🔟 Top 10 coins by market cap (live)
-- 🔴🟢 24h price change indicators
-- ⚠️ Custom high/low price alerts
-- ⏰ Auto-refresh every 5 minutes
+def send_telegram(msg):
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+    requests.post(url, data={"chat_id": TELEGRAM_CHAT_ID, "text": msg})
 
-## Setup
+def get_top10():
+    url = "https://api.coingecko.com/api/v3/coins/markets"
+    params = {"vs_currency": "usd", "order": "market_cap_desc", "per_page": 10, "page": 1}
+    return requests.get(url, params=params).json()
 
-```bash
-pip3 install requests python-dotenv
-cp .env.example .env
-# Add your OpenRouter API key in .env
-```
-
-## Usage
-
-```bash
-python3 finance_watcher.py
-```
-
-## Stack
-- Python 3.12
-- CoinGecko API (free, no key needed)
-- WSL2 / Ubuntu
+def check_alerts(alerts):
+    print("\nFinance Watcher - Top 10\n")
+    summary = "Finance W
