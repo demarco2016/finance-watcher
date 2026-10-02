@@ -1,0 +1,4 @@
+{
+  "bitcoin": {"low": 90000, "high": 110000},
+  "ethereum": {"low": 2000, "high": 4000}
+}
